@@ -34,9 +34,10 @@ def mark_attendance():
                 'message': 'Employee not found'
             }), 404
         
-        # Parse date
+        # Parse date and keep as string for MongoDB
         try:
-            attendance_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+            datetime.strptime(data['date'], '%Y-%m-%d')  # Validate format
+            attendance_date = data['date']  # Keep as string
         except ValueError:
             return jsonify({
                 'success': False,
@@ -79,10 +80,10 @@ def get_all_attendance():
     try:
         records = Attendance.find_all()
         
-        # Convert ObjectId and date to string
+        # Convert ObjectId to string
         for record in records:
             record['_id'] = str(record['_id'])
-            record['date'] = record['date'].isoformat()
+            # Date is already a string, no need to convert
         
         return jsonify({
             'success': True,
@@ -107,10 +108,10 @@ def get_employee_attendance(employee_id):
         
         records = Attendance.find_by_employee_id(employee_id)
         
-        # Convert ObjectId and date to string
+        # Convert ObjectId to string
         for record in records:
             record['_id'] = str(record['_id'])
-            record['date'] = record['date'].isoformat()
+            # Date is already a string, no need to convert
         
         present_count = len([r for r in records if r['status'] == 'Present'])
         absent_count = len([r for r in records if r['status'] == 'Absent'])
@@ -158,7 +159,7 @@ def update_attendance(att_id):
         # Fetch updated record
         updated = Attendance.find_by_id(att_id)
         updated['_id'] = str(updated['_id'])
-        updated['date'] = updated['date'].isoformat()
+        # Date is already a string, no need to convert
         
         return jsonify({
             'success': True,
