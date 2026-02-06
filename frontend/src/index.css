@@ -1,8 +1,0 @@
-/* base resets */
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-body { margin:0; padding:0; background: linear-gradient(180deg,#f8fafc,#f3f4f6); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#0f172a; }
-
-.app { min-height: 100vh; display:flex; flex-direction:column; }
-
-.container { max-width:1200px; margin:0 auto; padding:1rem; width:100%; }
