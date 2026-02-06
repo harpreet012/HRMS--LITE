@@ -13,11 +13,13 @@ CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "http://12
 from app.routes.employees import employees_bp
 from app.routes.attendance import attendance_bp
 from app.routes.dashboard import dashboard_bp
+from app.routes.performance import performance_bp
 
 # Register blueprints
 app.register_blueprint(employees_bp, url_prefix='/api/employees')
 app.register_blueprint(attendance_bp, url_prefix='/api/attendance')
 app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
+app.register_blueprint(performance_bp, url_prefix='/api/performance')
 
 @app.route('/')
 def index():

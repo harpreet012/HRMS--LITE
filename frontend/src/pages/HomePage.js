@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getDashboardStats } from '../services/api';
 import { LoadingSpinner, ErrorAlert, Button } from '../components/UI';
+import PerformanceChart from '../components/PerformanceChart';
+import AttendanceHeatmap from '../components/AttendanceHeatmap';
 
 const HomePage = () => {
   const [stats, setStats] = useState({
@@ -110,6 +112,14 @@ const HomePage = () => {
             0
           </div>
         </div>
+      </div>
+
+      {/* Performance Charts */}
+      <PerformanceChart />
+
+      {/* Attendance Heatmap */}
+      <div style={{marginTop: '2rem'}}>
+        <AttendanceHeatmap />
       </div>
 
       {/* Additional Info */}
