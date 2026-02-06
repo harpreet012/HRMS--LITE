@@ -1,0 +1,216 @@
+/* Professional Resume Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.header {
+    text-align: center;
+    border-bottom: 2px solid #007acc;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    font-size: 1.8em;
+    color: #007acc;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.education-item, .experience-item {
+    margin-bottom: 20px;
+}
+
+.education-item h3, .experience-item h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.education-item p, .experience-item p {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.skill-category h3 {
+    font-size: 1.2em;
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+.skill-category ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.skill-category li {
+    background-color: #f0f8ff;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.project {
+    border-left: 4px solid #007acc;
+    padding-left: 20px;
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.project h3 {
+    font-size: 1.4em;
+    color: #007acc;
+    margin-bottom: 5px;
+}
+
+.project-meta {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+.project ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.project li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.certifications {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.certifications li {
+    background-color: #e8f4fd;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border-left: 4px solid #007acc;
+}
+
+.print-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.print-btn:hover {
+    background-color: #005999;
+}
+
+@media print {
+    body {
+        background-color: white;
+        padding: 0;
+    }
+
+    .container {
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .print-btn {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-category li {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+}
