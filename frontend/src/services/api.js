@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://hrms-lite-backend.onrender.com/api/v1';
+// Normalize REACT_APP_API_URL: if it already contains '/api' use as-is,
+// otherwise append '/api/v1' so deployed and local configs both work.
+const rawBase = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const trimmed = rawBase.replace(/\/$/, '');
+const API_BASE_URL = /\/api(\/|$)/i.test(trimmed) ? trimmed : `${trimmed}/api/v1`;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
