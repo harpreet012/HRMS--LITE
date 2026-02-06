@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { attendanceService, employeeService } from '../services/api';
-import { Button, LoadingSpinner, EmptyState, ErrorAlert, Select } from './UI';
+import { LoadingSpinner, EmptyState, ErrorAlert, Select } from './UI';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export const AttendanceList = ({ refreshTrigger }) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { attendanceService, employeeService } from '../services/api';
-import { Input, Button, Select, ErrorAlert, SuccessAlert, LoadingSpinner } from './UI';
+import { Input, Button, Select, ErrorAlert, SuccessAlert } from './UI';
 
 export const AttendanceForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
