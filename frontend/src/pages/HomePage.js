@@ -136,8 +136,8 @@ const HomePage = () => {
             <div className="card-title">Quick Actions</div>
           </div>
           <div style={{display: 'flex', flexDirection: 'column', gap: '0.75rem'}}>
-            <Button variant="primary" style={{width: '100%'}}>➕ Add Employee</Button>
-            <Button variant="secondary" style={{width: '100%'}}>📋 Mark Attendance</Button>
+            <Button variant="primary" style={{width: '100%'}} onClick={() => window.location.href = '/employees'}>➕ Add Employee</Button>
+            <Button variant="secondary" style={{width: '100%'}} onClick={() => window.location.href = '/attendance'}>📋 Mark Attendance</Button>
             <Button variant="ghost" style={{width: '100%'}}>👁️ View Reports</Button>
           </div>
         </div>

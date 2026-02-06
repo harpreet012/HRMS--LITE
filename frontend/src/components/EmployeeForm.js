@@ -4,8 +4,8 @@ import { Input, Button, Select, ErrorAlert, SuccessAlert, LoadingSpinner } from 
 
 export const EmployeeForm = ({ onSuccess, editingEmployee = null }) => {
   const [formData, setFormData] = useState({
-    employeeId: '',
-    fullName: '',
+    employee_id: '',
+    full_name: '',
     email: '',
     department: ''
   });
@@ -31,8 +31,8 @@ export const EmployeeForm = ({ onSuccess, editingEmployee = null }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.employeeId.trim()) newErrors.employeeId = 'Employee ID is required';
-    if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required';
+    if (!formData.employee_id.trim()) newErrors.employee_id = 'Employee ID is required';
+    if (!formData.full_name.trim()) newErrors.full_name = 'Full Name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Invalid email format';
     if (!formData.department) newErrors.department = 'Department is required';
@@ -54,7 +54,7 @@ export const EmployeeForm = ({ onSuccess, editingEmployee = null }) => {
     try {
       await employeeService.addEmployee(formData);
       setSuccess('Employee added successfully!');
-      setFormData({ employeeId: '', fullName: '', email: '', department: '' });
+      setFormData({ employee_id: '', full_name: '', email: '', department: '' });
       setErrors({});
       onSuccess();
     } catch (err) {
@@ -82,22 +82,22 @@ export const EmployeeForm = ({ onSuccess, editingEmployee = null }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           label="Employee ID"
-          name="employeeId"
+          name="employee_id"
           placeholder="EMP001"
-          value={formData.employeeId}
+          value={formData.employee_id}
           onChange={handleChange}
           required
-          error={errors.employeeId}
+          error={errors.employee_id}
         />
 
         <Input
           label="Full Name"
-          name="fullName"
+          name="full_name"
           placeholder="John Doe"
-          value={formData.fullName}
+          value={formData.full_name}
           onChange={handleChange}
           required
-          error={errors.fullName}
+          error={errors.full_name}
         />
 
         <Input

@@ -33,14 +33,14 @@ export const AttendanceList = ({ refreshTrigger }) => {
   };
 
   const getEmployeeDetails = (empId) => {
-    return employees.find(e => e.employeeId === empId);
+    return employees.find(e => e.employee_id === empId);
   };
 
   const groupedByEmployee = attendanceRecords.reduce((acc, record) => {
-    if (!acc[record.employeeId]) {
-      acc[record.employeeId] = [];
+    if (!acc[record.employee_id]) {
+      acc[record.employee_id] = [];
     }
-    acc[record.employeeId].push(record);
+    acc[record.employee_id].push(record);
     return acc;
   }, {});
 
@@ -51,8 +51,8 @@ export const AttendanceList = ({ refreshTrigger }) => {
   const employeeOptions = [
     { value: 'all', label: 'All Employees' },
     ...employees.map(emp => ({
-      value: emp.employeeId,
-      label: `${emp.fullName} (${emp.employeeId})`
+      value: emp.employee_id,
+      label: `${emp.full_name} (${emp.employee_id})`
     }))
   ];
 
@@ -90,7 +90,7 @@ export const AttendanceList = ({ refreshTrigger }) => {
                   className="w-full p-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
                   <div className="text-left">
-                    <h3 className="font-semibold text-lg">{employee?.fullName}</h3>
+                    <h3 className="font-semibold text-lg">{employee?.full_name}</h3>
                     <p className="text-sm text-gray-600">{empId} • {employee?.department}</p>
                     <div className="flex gap-6 mt-2 text-sm">
                       <span className="text-green-600">✓ {presentCount} Present</span>

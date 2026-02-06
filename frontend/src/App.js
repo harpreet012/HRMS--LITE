@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import EmployeesPage from './pages/EmployeesPage';
 import AttendancePage from './pages/AttendancePage';
@@ -7,6 +7,7 @@ import './App.css';
 
 function AppContent() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { label: 'Dashboard', path: '/', icon: '📊' },
@@ -16,6 +17,25 @@ function AppContent() {
     { label: 'Leave Management', path: '/leave', icon: '✈️' },
     { label: 'Payroll', path: '/payroll', icon: '💰' },
   ];
+
+  const handleAddNew = () => {
+    if (location.pathname === '/employees') {
+      // Scroll to form
+      const formElement = document.querySelector('.employee-form');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (location.pathname === '/attendance') {
+      // Scroll to form
+      const formElement = document.querySelector('.attendance-form');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Default to employees page
+      navigate('/employees');
+    }
+  };
 
   return (
     <div className="app">
@@ -48,7 +68,7 @@ function AppContent() {
             {navItems.find(item => item.path === location.pathname)?.label || 'Dashboard'}
           </h1>
           <div className="header-right">
-            <button className="btn btn-primary">+ Add New</button>
+            <button className="btn btn-primary" onClick={handleAddNew}>+ Add New</button>
           </div>
         </header>
 

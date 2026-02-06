@@ -4,7 +4,7 @@ import { Input, Button, Select, ErrorAlert, SuccessAlert, LoadingSpinner } from 
 
 export const AttendanceForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
-    employeeId: '',
+    employee_id: '',
     date: new Date().toISOString().split('T')[0],
     status: 'Present'
   });
@@ -23,8 +23,8 @@ export const AttendanceForm = ({ onSuccess }) => {
       const response = await employeeService.getAllEmployees();
       setEmployees(
         (response.data.data || []).map(emp => ({
-          value: emp.employeeId,
-          label: `${emp.fullName} (${emp.employeeId})`
+          value: emp.employee_id,
+          label: `${emp.full_name} (${emp.employee_id})`
         }))
       );
     } catch (err) {
@@ -34,7 +34,7 @@ export const AttendanceForm = ({ onSuccess }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.employeeId) newErrors.employeeId = 'Employee is required';
+    if (!formData.employee_id) newErrors.employee_id = 'Employee is required';
     if (!formData.date) newErrors.date = 'Date is required';
     if (!formData.status) newErrors.status = 'Status is required';
     return newErrors;
@@ -55,7 +55,7 @@ export const AttendanceForm = ({ onSuccess }) => {
     try {
       await attendanceService.markAttendance(formData);
       setSuccess('Attendance marked successfully!');
-      setFormData({ employeeId: '', date: new Date().toISOString().split('T')[0], status: 'Present' });
+      setFormData({ employee_id: '', date: new Date().toISOString().split('T')[0], status: 'Present' });
       setErrors({});
       onSuccess();
     } catch (err) {
@@ -88,12 +88,12 @@ export const AttendanceForm = ({ onSuccess }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <Select
           label="Employee"
-          name="employeeId"
-          value={formData.employeeId}
+          name="employee_id"
+          value={formData.employee_id}
           onChange={handleChange}
           options={employees}
           required
-          error={errors.employeeId}
+          error={errors.employee_id}
         />
 
         <Input

@@ -11,9 +11,19 @@ const api = axios.create({
   timeout: 8000
 });
 
+// Helper function to convert camelCase to snake_case
+const toSnakeCase = (obj) => {
+  const result = {};
+  for (const [key, value] of Object.entries(obj)) {
+    const snakeKey = key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    result[snakeKey] = value;
+  }
+  return result;
+};
+
 // Employee API calls
 export const employeeService = {
-  addEmployee: (data) => api.post('/employees', data),
+  addEmployee: (data) => api.post('/employees', toSnakeCase(data)),
   getAllEmployees: () => api.get('/employees'),
   getEmployeeById: (id) => api.get(`/employees/${id}`),
   deleteEmployee: (id) => api.delete(`/employees/${id}`)

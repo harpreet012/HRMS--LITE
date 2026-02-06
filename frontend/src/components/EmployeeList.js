@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { employeeService } from '../services/api';
-import { Button, LoadingSpinner, EmptyState, ErrorAlert } from './UI';
+import { LoadingSpinner, EmptyState, ErrorAlert } from './UI';
 import { Trash2 } from 'lucide-react';
 
 export const EmployeeList = ({ refreshTrigger }) => {
@@ -56,16 +56,20 @@ export const EmployeeList = ({ refreshTrigger }) => {
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Full Name</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Email</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Department</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Created Date</th>
                 <th className="px-6 py-3 text-center text-sm font-semibold text-gray-700">Actions</th>
               </tr>
             </thead>
             <tbody>
               {employees.map((employee, index) => (
                 <tr key={employee._id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                  <td className="px-6 py-4 text-sm text-gray-900">{employee.employeeId}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{employee.fullName}</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{employee.employee_id}</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{employee.full_name}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">{employee.email}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">{employee.department}</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {employee.created_at ? new Date(employee.created_at).toLocaleDateString() : 'N/A'}
+                  </td>
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => handleDelete(employee._id)}

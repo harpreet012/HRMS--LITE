@@ -67,7 +67,7 @@ export const Button = ({ children, variant = 'primary', size = 'md', onClick, di
   );
 };
 
-export const Input = ({ label, placeholder, value, onChange, type = 'text', required = false, error = '' }) => (
+export const Input = ({ label, name, placeholder, value, onChange, type = 'text', required = false, error = '' }) => (
   <div className="mb-4">
     {label && (
       <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -76,6 +76,7 @@ export const Input = ({ label, placeholder, value, onChange, type = 'text', requ
       </label>
     )}
     <input
+      name={name}
       type={type}
       placeholder={placeholder}
       value={value}
@@ -88,7 +89,7 @@ export const Input = ({ label, placeholder, value, onChange, type = 'text', requ
   </div>
 );
 
-export const Select = ({ label, value, onChange, options, required = false, error = '' }) => (
+export const Select = ({ label, name, value, onChange, options, required = false, error = '' }) => (
   <div className="mb-4">
     {label && (
       <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -97,6 +98,7 @@ export const Select = ({ label, value, onChange, options, required = false, erro
       </label>
     )}
     <select
+      name={name}
       value={value}
       onChange={onChange}
       className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
