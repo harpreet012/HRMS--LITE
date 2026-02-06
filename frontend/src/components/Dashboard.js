@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { employeeService, attendanceService } from '../services/api';
-import { LoadingSpinner, ErrorAlert } from './UI';
+import { getDashboardStats } from '../services/api';
+import { LoadingSpinner, ErrorAlert, Button } from './UI';
 import { Users, Calendar, CheckCircle, XCircle } from 'lucide-react';
 
 export const Dashboard = () => {
@@ -20,24 +20,25 @@ export const Dashboard = () => {
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const empResponse = await employeeService.getAllEmployees();
-      const attResponse = await attendanceService.getAllAttendance();
+      const res = await getDashboardStats();
+      if (!res.success) throw new Error(res.message || 'Failed to fetch');
 
       const today = new Date().toLocaleDateString();
-      const todayRecords = (attResponse.data.data || []).filter(
+      const todayRecords = (res.records || []).filter(
         record => new Date(record.date).toLocaleDateString() === today
       );
 
       setStats({
-        totalEmployees: empResponse.data.count || 0,
-        totalAttendanceRecords: attResponse.data.count || 0,
+        totalEmployees: res.totalEmployees || 0,
+        totalAttendanceRecords: res.totalAttendanceRecords || 0,
         presentToday: todayRecords.filter(r => r.status === 'Present').length,
         absentToday: todayRecords.filter(r => r.status === 'Absent').length
       });
       setError('');
     } catch (err) {
-      setError('Failed to fetch dashboard stats');
-      console.error(err);
+      const msg = (err && err.message) ? err.message : 'Failed to fetch dashboard stats';
+      setError(msg);
+      console.error('Dashboard fetch error:', err);
     } finally {
       setLoading(false);
     }
@@ -62,6 +63,12 @@ export const Dashboard = () => {
       <h2 className="text-2xl font-bold mb-8">Dashboard</h2>
       
       {error && <ErrorAlert message={error} onClose={() => setError('')} />}
+
+      {error && (
+        <div style={{marginBottom:12}}>
+          <Button onClick={fetchStats} variant="primary">Retry</Button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard

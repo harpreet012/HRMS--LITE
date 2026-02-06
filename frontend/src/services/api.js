@@ -7,6 +7,8 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json'
   }
+  ,
+  timeout: 8000
 });
 
 // Employee API calls
@@ -28,5 +30,28 @@ export const attendanceService = {
 
 // Health check
 export const healthCheck = () => api.get('/health');
+
+// Combine multiple calls into a single helper for dashboard
+export const getDashboardStats = async () => {
+  try {
+    const [empResponse, attResponse] = await Promise.all([
+      employeeService.getAllEmployees(),
+      attendanceService.getAllAttendance()
+    ]);
+
+    const employees = empResponse.data.data || [];
+    const records = attResponse.data.data || [];
+
+    return {
+      success: true,
+      totalEmployees: empResponse.data.count || employees.length,
+      totalAttendanceRecords: attResponse.data.count || records.length,
+      records
+    };
+  } catch (err) {
+    // normalize error
+    return { success: false, message: err.message || 'Network error' };
+  }
+};
 
 export default api;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { EmployeeForm } from '../components/EmployeeForm';
 import { EmployeeList } from '../components/EmployeeList';
 
-export const EmployeesPage = () => {
+const EmployeesPage = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleEmployeeAdded = () => {
@@ -16,3 +16,5 @@ export const EmployeesPage = () => {
     </div>
   );
 };
+
+export default EmployeesPage;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AttendanceForm } from '../components/AttendanceForm';
 import { AttendanceList } from '../components/AttendanceList';
 
-export const AttendancePage = () => {
+const AttendancePage = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleAttendanceMarked = () => {
@@ -16,3 +16,5 @@ export const AttendancePage = () => {
     </div>
   );
 };
+
+export default AttendancePage;

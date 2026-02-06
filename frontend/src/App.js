@@ -1,94 +1,82 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { HomePage } from './pages/HomePage';
-import { EmployeesPage } from './pages/EmployeesPage';
-import { AttendancePage } from './pages/AttendancePage';
-import { Users, Calendar, Home } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import EmployeesPage from './pages/EmployeesPage';
+import AttendancePage from './pages/AttendancePage';
 import './App.css';
 
-function App() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+function AppContent() {
+  const location = useLocation();
+
+  const navItems = [
+    { label: 'Dashboard', path: '/', icon: '📊' },
+    { label: 'Employees', path: '/employees', icon: '👥' },
+    { label: 'Attendance', path: '/attendance', icon: '📅' },
+    { label: 'Performance', path: '/performance', icon: '📈' },
+    { label: 'Leave Management', path: '/leave', icon: '✈️' },
+    { label: 'Payroll', path: '/payroll', icon: '💰' },
+  ];
 
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-100">
-        {/* Navigation Bar */}
-        <nav className="bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <Link to="/" className="text-2xl font-bold">
-              📊 HRMS Lite
-            </Link>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-6">
-              <Link to="/" className="hover:text-blue-200 transition-colors flex items-center gap-2">
-                <Home size={20} /> Home
-              </Link>
-              <Link to="/employees" className="hover:text-blue-200 transition-colors flex items-center gap-2">
-                <Users size={20} /> Employees
-              </Link>
-              <Link to="/attendance" className="hover:text-blue-200 transition-colors flex items-center gap-2">
-                <Calendar size={20} /> Attendance
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-2xl"
-            >
-              ☰
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden bg-blue-700 px-4 py-2 space-y-2">
+    <div className="app">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="sidebar-logo">
+          <span>🏢</span>
+          <span>TeamHub</span>
+        </div>
+        <nav className="sidebar-nav">
+          {navItems.map((item) => (
+            <li key={item.path}>
               <Link
-                to="/"
-                className="block hover:text-blue-200 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
+                to={item.path}
+                className={location.pathname === item.path ? 'active' : ''}
               >
-                <div className="flex items-center gap-2">
-                  <Home size={20} /> Home
-                </div>
+                <span>{item.icon}</span>
+                <span>{item.label}</span>
               </Link>
-              <Link
-                to="/employees"
-                className="block hover:text-blue-200 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <div className="flex items-center gap-2">
-                  <Users size={20} /> Employees
-                </div>
-              </Link>
-              <Link
-                to="/attendance"
-                className="block hover:text-blue-200 transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <div className="flex items-center gap-2">
-                  <Calendar size={20} /> Attendance
-                </div>
-              </Link>
-            </div>
-          )}
+            </li>
+          ))}
         </nav>
+      </aside>
 
-        {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* Main Content */}
+      <div className="main-content">
+        {/* Header */}
+        <header className="header">
+          <h1 className="header-title">
+            {navItems.find(item => item.path === location.pathname)?.label || 'Dashboard'}
+          </h1>
+          <div className="header-right">
+            <button className="btn btn-primary">+ Add New</button>
+          </div>
+        </header>
+
+        {/* Page Container */}
+        <div className="page-container">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/employees" element={<EmployeesPage />} />
             <Route path="/attendance" element={<AttendancePage />} />
+            <Route path="/performance" element={<div><h2>Performance Management</h2><p>Coming soon...</p></div>} />
+            <Route path="/leave" element={<div><h2>Leave Management</h2><p>Coming soon...</p></div>} />
+            <Route path="/payroll" element={<div><h2>Payroll</h2><p>Coming soon...</p></div>} />
           </Routes>
         </div>
 
         {/* Footer */}
-        <footer className="bg-gray-800 text-white text-center py-6 mt-12">
-          <p>&copy; 2024 HRMS Lite. All rights reserved.</p>
+        <footer className="card" style={{ margin: '2rem', marginTop: 'auto', textAlign: 'center', color: 'var(--text-muted)' }}>
+          <p>&copy; 2026 TeamHub HR Management System. All rights reserved.</p>
         </footer>
       </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
